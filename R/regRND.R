@@ -53,7 +53,6 @@ regRND <- function(x, ...) UseMethod("regRND")
 #' \emph{IEEE Access}, 9:145800-145816, 2021.
 #' \doi{https://doi.org/10.1109/ACCESS.2021.3123151}.
 #' @examples
-#' \donttest{
 #' # load the dataset
 #' data(rock)
 #'
@@ -70,7 +69,7 @@ regRND <- function(x, ...) UseMethod("regRND")
 #'
 #' # check the match of noisy indices
 #' all(out.def$idnoise == out.frm$idnoise)
-#' }
+#' 
 #' @seealso \code{\link{regENN}}, \code{\link{regAENN}}, \code{\link{regGE}}, \code{\link{print.rfdata}}, \code{\link{summary.rfdata}}
 #' @name regRND
 NULL
@@ -125,32 +124,25 @@ regRND.default <- function(x, y, t=0.2, nfolds=5, vote=FALSE, ...){
   }
 
   vote <- ifelse(vote, 5, 3)
-
   idx.noisy <- which(rowSums(votes)>=vote)
-  outs <- dataset[,ncol(dataset)]
-
-  dataset[-idx.noisy,"y"] <- "clean"
-  dataset[idx.noisy,"y"] <- "noise"
-
-  dist.clean <- dist.samples(dataset)$dist.clean
-  dist.noise <- dist.samples(dataset)$dist.noise
-
-  real.noise <- c()
-  for (noi in idx.noisy) {
-    DC1 <- mean(dist.noise[noi,])
-    DC2 <- mean(dist.clean[noi,])
-    if(DC1 < DC2 && dataset[noi,ncol(dataset)] == "noise"){real.noise <- c(real.noise, noi)}
-  }
+  
+  if(length(idx.noisy) >= 1){
+    dataset[-idx.noisy,"tag"] <- "clean"
+    dataset[idx.noisy,"tag"] <- "noise"
+    
+    real.clean <- dist.noisy(dataset, output)
+    idx.noisy <- setdiff(idx.noisy, real.clean)
+  }else{idx.noisy <- NULL}
 
   # ------------------------------------ #
   # --- Building the 'filter' object --- #
   # ------------------------------------ #
-  idclean <- setdiff(1:nrow(original.data), real.noise)
+  idclean <- setdiff(1:nrow(original.data), idx.noisy)
   numclean <- length(idclean)
   xclean <- original.data[idclean, -ncol(original.data)]
   yclean <- original.data[idclean, ncol(original.data)]
 
-  idnoise <- real.noise
+  idnoise <- idx.noisy
   numnoise <- length(idnoise)
   xnoise <- original.data[idnoise, -ncol(original.data)]
   ynoise <- original.data[idnoise, ncol(original.data)]
@@ -215,32 +207,26 @@ testing <- function(alg, train.fold, test.fold, output, t, returns){
 ###############################################################
 ###############################################################
 ###############################################################
-dist.samples <- function(df){
-  euc.dist <- function(x1, x2) sqrt(sum((x1 - x2) ^ 2))
-
-  dist.clean <- array(NA, dim = c(nrow(df), 10))
-  dist.noise <- array(NA, dim = c(nrow(df), 10))
-
-  df.clean <- df[which(df[,ncol(df)]%in%"clean"),-ncol(df)]
-  df.noise <- df[which(df[,ncol(df)]%in%"noise"),-ncol(df)]
-
-  for (d in 1:nrow(df)) {
-    dsit1 <- NULL
-    for (i in setdiff(1:nrow(df.clean), d)) {
-      dsit1[i] <- euc.dist(x1 = df[d, -ncol(df)], x2 = df.clean[i,])
+dist.noisy <- function(df, output){
+  
+  tg = which(colnames(df)%in%"tag")
+  nei <- get.knn(data = df[,-c(output, tg)], k = 10, algorithm = "brute")$nn.index
+  nei.dist <- get.knn(data = df[,-c(output, tg)], k = 10, algorithm = "brute")$nn.dist
+  
+  ###
+  indx <- NULL
+  for(i in 1:nrow(nei)){
+    DC1 <- mean(nei.dist[i,which(df[nei[i,],"tag"]%in%"clean")])
+    DC2 <- mean(nei.dist[i,which(df[nei[i,],"tag"]%in%"noise")])
+    
+    if(is.na(DC1)){DC1 <- 0}
+    if(is.na(DC2)){DC2 <- 0}
+    
+    if(DC1 < DC2 && df[i,"tag"] == "noise"){
+      indx <- append(indx, i)
     }
-    dist.clean[d,] <- dsit1[which(dsit1 %in% sort(dsit1)[1:10])[1:10]]
   }
-
-  for (d in 1:nrow(df)) {
-    dsit1 <- NULL
-    for (i in setdiff(1:nrow(df.noise), d)) {
-      dsit1[i] <- euc.dist(x1 = df[d, -ncol(df)], x2 = df.noise[i,])
-    }
-    dist.noise[d,] <- dsit1[which(dsit1 %in% sort(dsit1)[1:10])[1:10]]
-  }
-  res <- list(dist.clean = dist.clean, dist.noise = dist.noise)
-  return(res)
+  return(indx)
 }
 
 ###############################################################

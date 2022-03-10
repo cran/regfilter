@@ -1,5 +1,5 @@
 Package: regfilter
-Version: 1.0.1
+Version: 1.0.2
 Title: Elimination of Noisy Samples in Regression Datasets using Noise
         Filters
 Authors@R: c(
@@ -59,8 +59,8 @@ Author: Juan Martin [aut, cre],
   Francisco Herrera [ctb] (Author of the NoiseFiltersR package)
 Maintainer: Juan Martin <juanmartin@usal.es>
 Repository: CRAN
-Date/Publication: 2022-03-07 20:00:07 UTC
+Date/Publication: 2022-03-10 11:00:08 UTC
 Suggests: testthat (>= 3.0.0), knitr, rmarkdown
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-Packaged: 2022-03-02 19:46:45 UTC; jmsantos
+Packaged: 2022-03-09 17:19:04 UTC; jmsantos

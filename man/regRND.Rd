@@ -58,7 +58,6 @@ The implementation of this noise filter to be used in regression problems follow
 which is based on the use of a noise threshold (\code{t}) to determine the similarity between the output variable of the samples.
 }
 \examples{
-\donttest{
 # load the dataset
 data(rock)
 
@@ -75,7 +74,7 @@ out.frm <- regRND(formula = perm ~ ., data = rock[,])
 
 # check the match of noisy indices
 all(out.def$idnoise == out.frm$idnoise)
-}
+
 }
 \references{
 Z. Nematzadeh, R. Ibrahim and A. Selamat,

@@ -109,6 +109,9 @@ regIPF.default <- function(x, y, t=0.4, nfolds=10, vote=FALSE, p=0.01, s=3, i=0.
   if(any(i < 0) || any(i > 1)){
     stop('"i" parameter must be in [0,1]')
   }
+  if(nfolds < 3){
+    stop("number of \"Nearest-Neighbor\" must be greater than 3")
+  }
 
   dataset <- cbind(x, y)
   output <- ncol(dataset)
