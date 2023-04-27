@@ -16,7 +16,7 @@ getInfo <- function(what = "Suggests") {
 }
 
 ## ----install1-----------------------------------------------------------------
-# install.packages("regfilter")
+#install.packages("regfilter")
 
 ## ----install2-----------------------------------------------------------------
 library(regfilter)
