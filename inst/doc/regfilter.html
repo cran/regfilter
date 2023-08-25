@@ -354,14 +354,22 @@ al.</i> (2021)</a>.</p>
 <p>The <strong>regfilter</strong> package can be installed in R from
 <strong>CRAN</strong> servers using the command:</p>
 </p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;regfilter&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#install.packages(&quot;regfilter&quot;)</span></span></code></pre></div>
 <p style="text-align:justify;">
 <p>This command installs all the dependencies of the package as well as
 all the regression algorithms necessary for the operation of the noise
 filters. In order to access all the functions of the package, it is
 necessary to use the R command:</p>
 </p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(regfilter)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(regfilter)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt; The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; which was just loaded, will retire in October 2023.</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; Please refer to R-spatial evolution reports for details, especially</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; https://r-spatial.org/r/2023/05/15/evolution4.html.</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; It may be desirable to make the sf package available;</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; package maintainers should consider adding sf to Suggests:.</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; The sp package is now running under evolution status 2</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt;      (status 2 uses the sf package in place of rgdal)</span></span></code></pre></div>
 </div>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
@@ -371,7 +379,7 @@ consulted from the <strong>CRAN</strong> website. Additionally, the
 help() command can be used. For example, in order to check the
 documentation of the <i>regIPF</i> noise filter, we can use:</p>
 </p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(regIPF)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">help</span>(regIPF)</span></code></pre></div>
 </div>
 <div id="usage-of-regression-noise-filters" class="section level2">
 <h2>Usage of regression noise filters</h2>
@@ -400,24 +408,24 @@ indicated in the <i>formula</i> argument.
 <i>rock</i> dataset with the <i>regCNN</i> noise filter is shown
 below:</p>
 </p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(rock)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rock)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   area    peri     shape perm</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 4990 2791.90 0.0903296  6.3</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 7002 3892.60 0.1486220  6.3</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 7558 3930.66 0.1833120  6.3</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 7352 3869.32 0.1170630  6.3</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 7943 3948.54 0.1224170 17.1</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 7979 4010.15 0.1670450 17.1</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the default method:</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">9</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>out.def <span class="ot">&lt;-</span> <span class="fu">regCNN</span>(<span class="at">x =</span> rock[,<span class="sc">-</span><span class="fu">ncol</span>(rock)], <span class="at">y =</span> rock[,<span class="fu">ncol</span>(rock)])</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the formula method:</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">9</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>out.frm <span class="ot">&lt;-</span> <span class="fu">regCNN</span>(<span class="at">formula =</span> perm <span class="sc">~</span> ., <span class="at">data =</span> rock)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the match of noisy indices:</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(out.def<span class="sc">$</span>idnoise <span class="sc">==</span> out.frm<span class="sc">$</span>idnoise)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">data</span>(rock)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">head</span>(rock)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt;   area    peri     shape perm</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; 1 4990 2791.90 0.0903296  6.3</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; 2 7002 3892.60 0.1486220  6.3</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; 3 7558 3930.66 0.1833120  6.3</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; 4 7352 3869.32 0.1170630  6.3</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; 5 7943 3948.54 0.1224170 17.1</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; 6 7979 4010.15 0.1670450 17.1</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co"># Using the default method:</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">9</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>out.def <span class="ot">&lt;-</span> <span class="fu">regCNN</span>(<span class="at">x =</span> rock[,<span class="sc">-</span><span class="fu">ncol</span>(rock)], <span class="at">y =</span> rock[,<span class="fu">ncol</span>(rock)])</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co"># Using the formula method:</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">9</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>out.frm <span class="ot">&lt;-</span> <span class="fu">regCNN</span>(<span class="at">formula =</span> perm <span class="sc">~</span> ., <span class="at">data =</span> rock)</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co"># Check the match of noisy indices:</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="fu">all</span>(out.def<span class="sc">$</span>idnoise <span class="sc">==</span> out.frm<span class="sc">$</span>idnoise)</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <p style="text-align:justify;">
 <p>Note that, the <span class="math inline">\(\$\)</span> operator is
 used to access the elements returned by the filter in the objects <span class="math inline">\(out.def\)</span> and <span class="math inline">\(out.frm\)</span>.</p>
@@ -473,44 +481,44 @@ samples (with errors).
 </ul>
 <p>As an example, the structure of the <i>rfdata</i> object returned
 using the <i>regCNN</i> noise filter is shown below:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(out.def)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 11</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ xclean  :&#39;data.frame&#39;:    39 obs. of  3 variables:</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ area : int [1:39] 4990 7002 7558 7352 7943 7979 9333 8209 8393 6425 ...</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ peri : num [1:39] 2792 3893 3931 3869 3949 ...</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ shape: num [1:39] 0.0903 0.1486 0.1833 0.1171 0.1224 ...</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ yclean  : num [1:39] 6.3 6.3 6.3 6.3 17.1 17.1 17.1 17.1 119 119 ...</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ numclean: int 39</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ idclean : num [1:39] 1 2 3 4 5 6 7 8 9 10 ...</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ xnoise  :&#39;data.frame&#39;:    9 obs. of  3 variables:</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ area : int [1:9] 3469 1468 3524 5267 5048 1016 5605 8793 5514</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ peri : num [1:9] 1377 476 1189 1645 942 ...</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ shape: num [1:9] 0.177 0.439 0.164 0.254 0.329 ...</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ ynoise  : num [1:9] 100 100 100 100 1300 1300 1300 1300 580</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ numnoise: int 9</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ idnoise : int [1:9] 37 38 39 40 41 42 43 44 47</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ filter  : chr &quot;Condensed Nearest Neighbors&quot;</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ param   :List of 1</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ t: num 0.2</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ call    : language regCNN(x = rock[, -ncol(rock)], y = rock[, ncol(rock)])</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr &quot;rfdata&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">str</span>(out.def)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; List of 11</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt;  $ xclean  :&#39;data.frame&#39;:    39 obs. of  3 variables:</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;   ..$ area : int [1:39] 4990 7002 7558 7352 7943 7979 9333 8209 8393 6425 ...</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;   ..$ peri : num [1:39] 2792 3893 3931 3869 3949 ...</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;   ..$ shape: num [1:39] 0.0903 0.1486 0.1833 0.1171 0.1224 ...</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt;  $ yclean  : num [1:39] 6.3 6.3 6.3 6.3 17.1 17.1 17.1 17.1 119 119 ...</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;  $ numclean: int 39</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;  $ idclean : num [1:39] 1 2 3 4 5 6 7 8 9 10 ...</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt;  $ xnoise  :&#39;data.frame&#39;:    9 obs. of  3 variables:</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;   ..$ area : int [1:9] 3469 1468 3524 5267 5048 1016 5605 8793 5514</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;   ..$ peri : num [1:9] 1377 476 1189 1645 942 ...</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt;   ..$ shape: num [1:9] 0.177 0.439 0.164 0.254 0.329 ...</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt;  $ ynoise  : num [1:9] 100 100 100 100 1300 1300 1300 1300 580</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt;  $ numnoise: int 9</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt;  $ idnoise : int [1:9] 37 38 39 40 41 42 43 44 47</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt;  $ filter  : chr &quot;Condensed Nearest Neighbors&quot;</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt;  $ param   :List of 1</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt;   ..$ t: num 0.2</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt;  $ call    : language regCNN(x = rock[, -ncol(rock)], y = rock[, ncol(rock)])</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr &quot;rfdata&quot;</span></span></code></pre></div>
 <p style="text-align:justify;">
 <p>In order to display the results of the <i>rfdata</i> class in a
 friendly way in the R console, two specific <i>print</i> and
 <i>summary</i> functions are implemented. The <i>print</i> function
 presents the basic information of the noise filtering process:</p>
 </p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(out.def)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ## Noise filter: </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Condensed Nearest Neighbors</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ## Parameters:</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - t = 0.2</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ## Number of noisy and clean samples:</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Noisy samples: 9/48 (18.75%)</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Clean samples: 39/48 (81.25%)</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">print</span>(out.def)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; ## Noise filter: </span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; Condensed Nearest Neighbors</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; ## Parameters:</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; - t = 0.2</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; ## Number of noisy and clean samples:</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; - Noisy samples: 9/48 (18.75%)</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; - Clean samples: 39/48 (81.25%)</span></span></code></pre></div>
 <p style="text-align:justify;">
 <p>The information offered by <i>print</i> is as follows:</p>
 <ul>
@@ -531,27 +539,27 @@ information of the dataset processed with the noise filter along with
 other additional details. This function can be called by typing the
 following R command:</p>
 </p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out.frm, <span class="at">showid =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ########################################################</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Noise filtering process: Summary</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ########################################################</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ## Original call:</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; regCNN(formula = perm ~ ., data = rock)</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ## Noise filter: </span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Condensed Nearest Neighbors</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ## Parameters:</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - t = 0.2</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ## Number of noisy and clean samples:</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Noisy samples: 9/48 (18.75%)</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Clean samples: 39/48 (81.25%)</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ## Indices of noisy samples:</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 37, 38, 39, 40, 41, 42, 43, 44, 47</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">summary</span>(out.frm, <span class="at">showid =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; ########################################################</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt;  Noise filtering process: Summary</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; ########################################################</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; ## Original call:</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; regCNN(formula = perm ~ ., data = rock)</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; ## Noise filter: </span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; Condensed Nearest Neighbors</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; ## Parameters:</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; - t = 0.2</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; ## Number of noisy and clean samples:</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; - Noisy samples: 9/48 (18.75%)</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; - Clean samples: 39/48 (81.25%)</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; ## Indices of noisy samples:</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; 37, 38, 39, 40, 41, 42, 43, 44, 47</span></span></code></pre></div>
 <p style="text-align:justify;">
 <p>The information offered by this function is as follows:</p>
 </p>
