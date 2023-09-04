@@ -198,7 +198,7 @@ plot.rfdata <- function(x, ..., var = c(1), fun = "mean"){
   
   # Create data.frame to plot
   d_val <- c(value_ori, value_clean, value_noise)
-  d_var <- rep(names(data_ori), times = 3)  
+  d_var <- rep(names(data_ori)[var], times = 3)  
   d_dat <- rep(c("Original", "Clean", "Noisy"), each = length(var))
   dataplot <- data.frame(d_val, d_var, d_dat)
   

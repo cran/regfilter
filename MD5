@@ -1,6 +1,6 @@
-8fd789bb6fece09c4ffdb6c6e25a2a5d *DESCRIPTION
+de48a7e513c9d60c62564dd651355b7a *DESCRIPTION
 0510416f3d8c43fb5ad03aaf77f93bad *NAMESPACE
-5ca8435792890c85191c97b8dc6619fc *NEWS.md
+1c2b97384a22aebcaa61e703d82270f5 *NEWS.md
 120ab28b3deaf3003117f6ea036908db *R/discCNN.R
 5a418cfb6090071c276bcac85289be25 *R/discENN.R
 e66cfb705351112ba91276dc82918da7 *R/discNCL.R
@@ -19,18 +19,18 @@ e9ffb74ff68549b76b60da8be75eedb1 *R/regHRRF.R
 6153e0b73aea417ef6977491ec9ce4d1 *R/regIRF.R
 37b183536bde0998416a5385918d0848 *R/regRND.R
 5180f9c094bffee0bda08b490354ede7 *R/regRNN.R
-c59ac0fee6b58273270ca9fc5f595db4 *R/rfCDF.R
+a0f5154ded04a277d02b824ed25aae39 *R/rfCDF.R
 f9a98142b1451e9a944cd6fa704cceca *R/rfDROP2.R
 bec68e68d9a5ecb8ea13b960f638c41e *R/rfDROP3.R
 b232f126cc10f4645984aebf4ef4ab5c *R/rfMIF.R
-f0b077b4e0586a341f27e54f5ee74e4f *R/rfdata.R
+2e5777fc646ca24d38883556b85bd6ac *R/rfdata.R
 86d291c28937c8089536f90fba6340c2 *R/utility.R
 0c6ad5b3446721162c89589e8077ab1c *build/partial.rdb
 408ed481988e95088d05c7969c92c4e6 *build/vignette.rds
 463e7feff9a72403d7151f476be8b66c *inst/COPYRIGHTS/Copyright.txt
 3c02dbbc2a2c3278943b3f960dd0b461 *inst/doc/regfilter.R
-57942a63d221a3d9876d4b65dd527d0f *inst/doc/regfilter.Rmd
-dbe304ce68fc77be7964660f4886f9dc *inst/doc/regfilter.html
+4e3fcbe488a3271e37ba4e6b47638e92 *inst/doc/regfilter.Rmd
+5ab5787ba8f33fd71043b8d0dfc884cd *inst/doc/regfilter.html
 29a9012941a6bcb26bf0fb4382c5dd75 *inst/extdata/LICENSE.md
 b3c27cd479d6a1c7cc09c6994c7640dc *inst/extdata/cran-comments.md
 b3c27cd479d6a1c7cc09c6994c7640dc *inst/extdata/cran-comments.txt
@@ -54,7 +54,7 @@ ef56c8a5f95b000157bf1f2ba197b4dc *man/regBBNR.Rd
 1de44045a29bec2291174be0b8039cad *man/regIRF.Rd
 73e48cea285bbe0c62f7aa620a9e3529 *man/regRND.Rd
 a72c727c0b688bdd0135a345cb340241 *man/regRNN.Rd
-214aa367bf50044369f6385ac90ddb94 *man/rfCDF.Rd
+776711d9f9a92afdd6fdf8bd93f7aa8b *man/rfCDF.Rd
 2a324422bb833d8727a6a8e95cb65910 *man/rfDROP2.Rd
 17d1947f7c8c8a11d8ddef67dc7a8751 *man/rfDROP3.Rd
 e04b8d0245121725ace817b988cb9b92 *man/rfMIF.Rd
@@ -82,4 +82,4 @@ b892ff64db79a613aedc76ee6ed74543 *tests/testthat/test-regRND.R
 8c9906f93c667bccec2c36330c6ef824 *tests/testthat/test-rfDROP2.R
 7a02a3ef434030cb4128a7d53c251ceb *tests/testthat/test-rfDROP3.R
 bf0eca0415fc53c3a253e713ee97743b *tests/testthat/test-rfMIF.R
-57942a63d221a3d9876d4b65dd527d0f *vignettes/regfilter.Rmd
+4e3fcbe488a3271e37ba4e6b47638e92 *vignettes/regfilter.Rmd

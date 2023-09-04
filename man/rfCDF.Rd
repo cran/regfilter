@@ -75,9 +75,9 @@ all(out.def$idnoise == out.frm$idnoise)
 
 }
 \references{
-J. Gaoxia, W. Wenjian, Q. Yuhua, L. Jiye,
+G. Jiang, W. Wang, Y. Qian, J. Liang,
 \strong{A Unified Sample Selection Framework for Output Noise Filtering: An Error-Bound Perspective.}
-\emph{Journal of Machine Learning Research}, 22:800–865, 2021.
+\emph{Journal of Machine Learning Research}, 22:1–65, 2021.
 }
 \seealso{
 \code{\link{regEF}}, \code{\link{regIPF}}, \code{\link{regGE}}, \code{\link{print.rfdata}}, \code{\link{summary.rfdata}}
